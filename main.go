@@ -1,16 +1,7 @@
 package main
 
-import (
-	"SudokuAPI/Generator"
-	"fmt"
-)
+import "SudokuAPI/Server"
 
 func main() {
-	g := Generator.GenerateSudoku(80)
-
-	for i := 0; i < 9; i++ {
-
-		fmt.Println(g[i])
-
-	}
+	Server.Serve()
 }
