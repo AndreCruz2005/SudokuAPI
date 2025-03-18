@@ -2,8 +2,13 @@
 ## Routes
 
 
-### **GET** /sudoku?hints
-Returns a 9x9 2d array representing a sudoku board with the specified number of hints. 0 represents empty spaces.
+### **GET** /sudoku?hints&boxes
+Returns a 9x9 2d array representing a sudoku board. 0 represents empty spaces. 
+
+#### PARAMETERS:
+<b>hints (int):</b> Number of hints the sudoku board should have, i.e. non-empty spaces.
+
+<b>boxes ('true' || 'false'):</b> Optional, by default 'false'. Whether each sub array in the board should represent a row or a box in the board. 
 
 #### EXAMPLE REQUEST: 
 ```

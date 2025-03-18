@@ -8,9 +8,18 @@ import (
 	"strconv"
 )
 
+func enableCors(w *http.ResponseWriter) {
+	(*w).Header().Set("Access-Control-Allow-Origin", "*")
+	(*w).Header().Set("Content-Type", "application/json")
+}
+
 func getSudoku(write http.ResponseWriter, request *http.Request) {
-	write.Header().Set("Content-Type", "application/json")
+	enableCors(&write)
 	hints := request.URL.Query().Get("hints")
+	boxes := request.URL.Query().Get("boxes")
+	if boxes == "" {
+		boxes = "false"
+	}
 
 	h, err := strconv.Atoi(hints)
 	if err != nil {
@@ -19,6 +28,9 @@ func getSudoku(write http.ResponseWriter, request *http.Request) {
 	}
 
 	sudoku := Generator.GenerateSudoku(h)
+	if boxes == "true" {
+		Generator.OrganizeIntoBoxes(&sudoku)
+	}
 	response, err := json.Marshal(sudoku)
 	if err != nil {
 		http.Error(write, err.Error(), http.StatusInternalServerError)
