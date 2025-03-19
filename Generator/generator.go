@@ -96,29 +96,25 @@ func hideNumbers(grid *[9][9]int, hints int) {
 }
 
 // OrganizeIntoBoxes Changes the 2d array where each array represents a row to one where each array is a box
-func OrganizeIntoBoxes(grid *[9][9]int) {
+func OrganizeIntoBoxes(grid *[9][9]int) [9][9]int {
 	var boxes [9][9]int
 
-	// Iterates over all the boxes
+	// Iterate over each box
 	for boxRow := 0; boxRow < 3; boxRow++ {
 		for boxCol := 0; boxCol < 3; boxCol++ {
+			boxIndex := boxRow*3 + boxCol
 
-			// Creates each box
-			var box [9]int
-
-			// Iterates over all cells in the box
+			// Fill each box
 			for i := 0; i < 3; i++ {
 				for j := 0; j < 3; j++ {
-					// Calculate the row and column in the original grid
 					row := boxRow*3 + i
 					col := boxCol*3 + j
-					cell := grid[row][col]
-					box[i*3+j] = cell
+					boxes[boxIndex][i*3+j] = grid[row][col]
 				}
 			}
-			boxes[boxRow*3+boxCol] = box
 		}
 	}
+	return boxes
 }
 
 func GenerateSudoku(hints int) [9][9]int {

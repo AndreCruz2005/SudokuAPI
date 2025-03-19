@@ -29,7 +29,7 @@ func getSudoku(write http.ResponseWriter, request *http.Request) {
 
 	sudoku := Generator.GenerateSudoku(h)
 	if boxes == "true" {
-		Generator.OrganizeIntoBoxes(&sudoku)
+		sudoku = Generator.OrganizeIntoBoxes(&sudoku)
 	}
 	response, err := json.Marshal(sudoku)
 	if err != nil {
